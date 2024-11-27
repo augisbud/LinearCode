@@ -73,14 +73,4 @@ public static class Matrix
 
         return H;
     }
-
-    public static void Print(byte[][] matrix)
-    {
-        foreach (var row in matrix)
-        {
-            foreach (var cell in row)
-                Console.Write(cell + " ");
-            Console.WriteLine();
-        }
-    }
 }
