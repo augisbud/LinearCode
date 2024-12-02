@@ -1,7 +1,8 @@
-namespace CT;
+namespace CT.Extensions;
 
-// Current implementation does not support matrix's that are not in form of G = [Ik|P], need to implement Gaussian elimination
-public static class Matrix
+// Current implementation does not support matrix's that are not in form of G = [Ik|P]
+// To support that, we need to implement Gaussian elimination.
+public static class MatrixExtensions
 {
     private static readonly Random _random = new();
 
@@ -26,7 +27,7 @@ public static class Matrix
         return matrix;
     }
 
-    public static byte[][] ParityMatrix(byte[][] generatorMatrix)
+    public static byte[][] ParityMatrix(this byte[][] generatorMatrix)
     {
         int n = generatorMatrix[0].Length;
         int k = generatorMatrix.Length;
@@ -72,5 +73,55 @@ public static class Matrix
         }
 
         return H;
+    }
+
+    public static byte[][] Transpose(this byte[][] matrix)
+    {
+        int rows = matrix.Length;
+        int cols = matrix[0].Length;
+        var transposed = new byte[cols][];
+
+        for (int i = 0; i < cols; i++)
+        {
+            transposed[i] = new byte[rows];
+            for (int j = 0; j < rows; j++)
+            {
+                transposed[i][j] = matrix[j][i];
+            }
+        }
+
+        return transposed;
+    }
+
+    public static byte[] Multiply(this byte[][] matrix, byte[] vector)
+    {
+        int rows = matrix.Length;
+        int cols = matrix[0].Length;
+
+        if (vector.Length != rows)
+            throw new ArgumentException("Vektoriaus ilgis turi sutapti su eilučių skaičiumi matricoje.");
+
+        var result = new byte[cols];
+
+        for (int j = 0; j < cols; j++)
+        {
+            byte sum = 0;
+            for (int i = 0; i < rows; i++)
+                sum ^= (byte)(matrix[i][j] * vector[i]);
+
+            result[j] = (byte)(sum % 2);
+        }
+
+        return result;
+    }
+
+    public static void Print(this byte[][] matrix)
+    {
+        foreach (var row in matrix)
+        {
+            foreach (var cell in row)
+                Console.Write(cell + " ");
+            Console.WriteLine();
+        }
     }
 }
