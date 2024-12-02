@@ -4,6 +4,18 @@ namespace CT.Services;
 
 public static class DecoderService
 {
+    public static List<byte[]> Vector(byte[][] G, byte[][] H, List<byte[]> input)
+    {
+        var result = new List<byte[]>();
+
+        foreach(var vector in input)
+        {
+            result.Add(Vector(G, H, vector));
+        }
+
+        return result;
+    }
+
     public static byte[] Vector(byte[][] G, byte[][] H, byte[] r)
     {
         var syndromes = CalculateSyndromes(G, H);
