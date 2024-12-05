@@ -162,7 +162,7 @@ Bandytos įvestys -> Užkoduotas įvestys -> Išsiųstos įvestys -> Klaidos -> 
 
 Iš eksperimentų matome, kad tiesinis kodas patikimai ištaiso tik tada, kai siuntimo metu padaryta 1 klaida.
 
-Rezultatai pavaizduoti grafu:
+Rezultatai pavaizduoti grafu:<br />
 ![Eksperimentų Rezultatai](images/statistics.png)
 
 ### Naudota Literatūra
