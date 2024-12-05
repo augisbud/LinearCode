@@ -31,24 +31,24 @@ arba nustatyti vertę `"GeneratorMatrix": null`, nenurodžius generuojančios ma
 Pastaba: klaidos tikimybė rašoma su ".", nes JSON failo standartas nepalaiko kablelių sveikosios ir trupmeninės dalies išskyrimui ir neatsižvelgia į operacinės sistemos parametrus.
 Pastaba: programa palaiko tik standartinio pavidalo generuojančią matricą, jeigu vartotojo pateikta matrica bus ne standartinio pavidalo, programa baigs darbą.
 
-## Ataskaita
+# Ataskaita
 
-### Trūkumai
+## Trūkumai
 - Nerealizuotas 3 - čiasis scenarijus (paveiksliukų kodavimo ir dekodavimo);
 
-### Trečiųjų šalių funkcijų bibliotekos
+## Trečiųjų šalių funkcijų bibliotekos
 - `Microsoft.Extensions.Configuration.*` - naudojama nuskaityti programos konfiguraciją iš failo, įrašoma ir nurodoma `CT.csproj` faile, panaudojama `using Microsoft.Extensions.Configuration`;
 - `System.Text` - ASCII ir Unicode simbolių kodavimo klasės; abstrakčios bazinės klasės, skirtos simbolių blokams konvertuoti į baitų blokus ir iš jų; ir pagalbinė klasė, kuri manipuliuoja „String“ objektais ir juos formatuoja nekurdama tarpinių „String“ egzempliorių, panaudojama `using System.Text`;
 - Visi kiti `using` t.y `using CT.*` naudoja vidinius, šioje programoje aprašytus metodus.
 
-### Programos paleidimas
+## Programos paleidimas
 Turint .NET 8 SDK, programą galima susikompiliuoti iš programinio kodo [src](src/) naudojant `dotnet publish -c Release -r win-x64 --self-contained true` gautas katalogas `bin/Release/win-x64/` atitiks programinį kodą prisegtą užduoties įkėlimo metu.
 
 Norint paleisti įprastai, reikia paleisti `CT.exe` failą, tačiau privalu įsitikinti, kad šalia jo yra `appsettings.json` failas, kuriame nurodyti aukščiau paminėti parametrai, kitaip programa netęs darbo.
 
 Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą vektorių ar tekstą (vektoriaus atveju, taip pat gali pasirinkti ar nori modifikuoti iš kanalo išėjusį vektorių).
 
-### Kodo failų aprašymas
+## Kodo failų aprašymas
 - [Constants/InputType.cs](src/Constants/InputType.cs) - aprašomi galimi įvesties tipai;
 - [Extensions/MatrixExtensions.cs](src/Extensions/MatrixExtensions.cs) - aprašomi pagalbiniai metodai su matricomis (byte[][] tipo duomenys);
 - [Extensions/StringExtensions.cs](src/Extensions/StringExtensions.cs) - aprašomi pagalbiniai metodai su tekstu (string tipo duomenys);
@@ -62,7 +62,7 @@ Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą 
 - [CT.csproj](src/CT.csproj) - programos projekto failas;
 - [Program.cs](src/Program.cs) - pradinis programos failas.
 
-### Vartotojo sąsaja
+## Vartotojo sąsaja
 - Paleidęs programą vartotojas mato, kokia naudojama generuojanti matrica G, kokia sugeneruota kontrolinė matrica H;
 - Jis turi pasirinkti įvesties tipą (1 - vektorius, 2 - tekstas) įvesdamas atitinkamą skaičių į įvesties terminalą;
 - Pasirinkęs vektorių, vartotojas turi jį įvesti be tarpų, įvestas vektorius turi atitikti kodo dimensijos ilgį;
@@ -85,7 +85,7 @@ Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant vektorių (žaliai pažy
 Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant tekstą (žaliai pažymėtos vartotojo įvestis):
 ![Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant tekstą](images/example_text.png)
 
-### Programiniai sprendimai
+## Programiniai sprendimai
 Teksto skaidymas į vektorius:
 - Naudojamas Encoding.ASCII.GetBytes(input) metodas, kuris paverčia pradinį tekstą į baitų masyvą;
 - Sukuriamas naujas baitų masyvas bits, kurio dydis yra 8 kartus didesnis už pradinį baitų masyvą, nes kiekvienas baitas turi 8 bitus;
@@ -96,7 +96,7 @@ Teksto skaidymas į vektorius:
 Teksto vektorių siuntimas kanalu:
 - Tekstas, kuris paverstas į bitų masyvą yra toliau skaidomas kodo dimensijos dydžio vektoriais, tai leidžia užtikrinti vientisą užkodavimą ir dekodavimą, tačiau reikalauja į tai atsižvelgti viso proceso metu.
 
-### Ekperimentai
+## Ekperimentai
 
 NR. 1
 Kodo parametrai (appsettings.json):
@@ -165,7 +165,7 @@ Iš eksperimentų matome, kad tiesinis kodas patikimai ištaiso tik tada, kai si
 Rezultatai pavaizduoti grafu:<br />
 ![Eksperimentų Rezultatai](images/statistics.png)
 
-### Naudota Literatūra
+## Naudota Literatūra
 - A11 užduoties aptarimas;
 - [Literatūra21.pdf](https://klevas.mif.vu.lt/~skersys/doc/ktkt/literatura21.pdf);
 - [Parity-Check matrix](https://en.wikipedia.org/wiki/Parity-check_matrix);
