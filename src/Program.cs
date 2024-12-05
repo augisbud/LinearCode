@@ -13,7 +13,7 @@ var configuration = new ConfigurationBuilder()
 
 if (configuration == null)
 {
-    Console.WriteLine("Nepavyko nuskaityti konfigūracijos. Ar turite appsettings.json failą su 'CodeParameters' sekciją kaip nurodyta README.md?");
+    Console.WriteLine("Nepavyko nuskaityti konfiguracijos. Ar turite appsettings.json failą su 'CodeParameters' sekciją kaip nurodyta README.md?");
     Console.ReadLine();
     return;
 }

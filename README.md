@@ -37,7 +37,7 @@ Pastaba: programa palaiko tik standartinio pavidalo generuojančią matricą, je
 - Nerealizuotas 3 - čiasis scenarijus (paveiksliukų kodavimo ir dekodavimo);
 
 ### Trečiųjų šalių funkcijų bibliotekos
-- `Microsoft.Extensions.Configuration.*` - naudojama nuskaityti programos konfigūraciją iš failo, įrašoma ir nurodoma `CT.csproj` faile, panaudojama `using Microsoft.Extensions.Configuration`;
+- `Microsoft.Extensions.Configuration.*` - naudojama nuskaityti programos konfiguraciją iš failo, įrašoma ir nurodoma `CT.csproj` faile, panaudojama `using Microsoft.Extensions.Configuration`;
 - `System.Text` - ASCII ir Unicode simbolių kodavimo klasės; abstrakčios bazinės klasės, skirtos simbolių blokams konvertuoti į baitų blokus ir iš jų; ir pagalbinė klasė, kuri manipuliuoja „String“ objektais ir juos formatuoja nekurdama tarpinių „String“ egzempliorių, panaudojama `using System.Text`;
 - Visi kiti `using` t.y `using CT.*` naudoja vidinius, šioje programoje aprašytus metodus.
 
@@ -53,7 +53,7 @@ Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą 
 - [Extensions/MatrixExtensions.cs](src/Extensions/MatrixExtensions.cs) - aprašomi pagalbiniai metodai su matricomis (byte[][] tipo duomenys);
 - [Extensions/StringExtensions.cs](src/Extensions/StringExtensions.cs) - aprašomi pagalbiniai metodai su tekstu (string tipo duomenys);
 - [Extensions/VectorExtensions.cs](src/Extensions/VectorExtensions.cs) - aprašomi pagalbiniai metodai su vektoriais (byte[] tipo duomenys);
-- [Models/CodeParametersDto.cs](src/Models/CodeParametersDto.cs) - aprašoma programos konfigūracijos struktūra, ja standartizuojant klase;
+- [Models/CodeParametersDto.cs](src/Models/CodeParametersDto.cs) - aprašoma programos konfiguracijos struktūra, ja standartizuojant klase;
 - [Services/ChannelService.cs](src/Services/ChannelService.cs) - realizuota siuntimo kanalu logika;
 - [Services/DecoderService.cs](src/Services/DecoderService.cs) - realizuota dekodavimo logika naudojant pagalbinius metodus;
 - [Services/EncoderService.cs](src/Services/EncoderService.cs) - realizuota užkodavimo logika naudojant pagalbinius metodus;

@@ -9,7 +9,7 @@ public static class InputService
     /// Užkoduoja, išsiunčia per kanalą ir dekoduoja vektorių.
     /// </summary>
     /// <param name="vector">Įvesties Vektorius</param>
-    /// <param name="configuration">Programos Konfigūracija</param>
+    /// <param name="configuration">Programos konfiguracija</param>
     /// <param name="G">Generuojanti Matrica</param>
     /// <param name="H">Patikrinimo Matrica</param>
     public static void ProccessVector(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H)
@@ -51,7 +51,7 @@ public static class InputService
     /// Užkoduoja, išsiunčia per kanalą ir dekoduoja tekstą išskaidytą į vektorių.
     /// </summary>
     /// <param name="vector">Įvesties Vektorius</param>
-    /// <param name="configuration">Programos Konfigūracija</param>
+    /// <param name="configuration">Programos konfiguracija</param>
     /// <param name="G">Generuojanti Matrica</param>
     /// <param name="H">Patikrinimo Matrica</param>
     public static void ProccessText(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H)
@@ -81,7 +81,7 @@ public static class InputService
     /// <summary>
     /// Testuoja visus galimus vektorius tam tikroje kodo dimensijoje.
     /// </summary>
-    /// <param name="configuration">Programos Konfigūracija</param>
+    /// <param name="configuration">Programos konfiguracija</param>
     /// <param name="G">Generuojanti Matrica</param>
     /// <param name="H">Patikrinimo Matrica</param>
     public static void ProccessTest(CodeParametersDto configuration, byte[][] G, byte[][] H)
