@@ -70,10 +70,10 @@ Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą 
 - Tada vartotojas gali pasirinkti, ar nori redaguoti iš kanalo gautą vektorių prieš dekodavimą;
 - Jeigu vartotojas pasirenka pakeisti iš kanalo gautą vektorių, jis turi įvesti naują vektorių, kuris bus naudojamas dekodavimui (ilgis turi atitikti kodo ilgį);
 - Gavęs dekoduotą vektorių, vartotojas mato rezultatą ekrane.
-
+---
 - Pasirinkęs tekstą, vartotojas turi įvesti tekstą;
 - Vartotojui parodoma originali įvestis, užkoduota įvestis (tačiau konvertuota į skaitomą tekstą), išsiųsta įvestis (tačiau konvertuota į skaitomą tekstą), įvestis, kuri buvo iškart dekoduota (t.y nesiunčiama kanalu) ir iš kanalo gauta ir dekoduota įvestis.
-
+---
 - Testavimui su skirtingų ilgių vektoriais pateikiamas 3 - čias programos veikimo režimas, kuris pats sugeneruoja visus galimus vektorius ir parodo, originalų vektorių, užkoduotą vektorių, išsiųstą vektorių ir dekoduotą vektorių.
 
 Programos konfiguracijos pavyzdys:<br />
