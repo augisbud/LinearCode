@@ -1,11 +1,15 @@
 namespace CT.Extensions;
 
-// Current implementation does not support matrix's that are not in form of G = [Ik|P]
-// To support that, we need to implement Gaussian elimination.
 public static class MatrixExtensions
 {
+    // Current implementation does not support matrix's that are not in form of G = [Ik|P]
+    // To support that, we need to implement Gaussian elimination.
     private static readonly Random _random = new();
 
+    /// <summary>
+    /// Patikrina, ar matrica yra standartinės formos [Ik|P].
+    /// </summary>
+    /// <param name="matrix">Betkokia matrica</param>
     public static bool IsStandardForm(this byte[][] matrix)
     {
         for (var i = 0; i < matrix.Length; i++)
@@ -22,6 +26,12 @@ public static class MatrixExtensions
         return true;
     }
 
+    /// <summary>
+    /// Sugeneruoja atsitiktinę generuojančią matricą G.
+    /// </summary>
+    /// <param name="n">Kodo ilgis</param>
+    /// <param name="k">Kodo dimensija</param>
+    /// <returns></returns>
     public static byte[][] Generator(int n, int k)
     {
         var matrix = new byte[k][];
@@ -43,6 +53,11 @@ public static class MatrixExtensions
         return matrix;
     }
 
+    /// <summary>
+    /// Sugeneruoja patikrinimo matricą H iš generuojančios matricos G.
+    /// </summary>
+    /// <param name="generatorMatrix">Generuojanti Matrica</param>
+    /// <returns></returns>
     public static byte[][] ParityMatrix(this byte[][] generatorMatrix)
     {
         int n = generatorMatrix[0].Length;
@@ -91,6 +106,11 @@ public static class MatrixExtensions
         return H;
     }
 
+    /// <summary>
+    /// Transponuoja matricą.
+    /// </summary>
+    /// <param name="matrix">Matrica Transponavimui</param>
+    /// <returns></returns>
     public static byte[][] Transpose(this byte[][] matrix)
     {
         int rows = matrix.Length;
@@ -109,6 +129,13 @@ public static class MatrixExtensions
         return transposed;
     }
 
+    /// <summary>
+    /// Daugina matricą iš vektoriaus.
+    /// </summary>
+    /// <param name="matrix">Matrica</param>
+    /// <param name="vector">Vektorius</param>
+    /// <returns>Matricos ir Vektoriaus daugybos rezultatas</returns>
+    /// <exception cref="ArgumentException"></exception>
     public static byte[] Multiply(this byte[][] matrix, byte[] vector)
     {
         int rows = matrix.Length;
@@ -131,6 +158,10 @@ public static class MatrixExtensions
         return result;
     }
 
+    /// <summary>
+    /// Atspausdina matricą į konsolę.
+    /// </summary>
+    /// <param name="matrix">Matrica, kurią norima atspausdinti</param>
     public static void Print(this byte[][] matrix)
     {
         foreach (var row in matrix)

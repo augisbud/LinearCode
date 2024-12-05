@@ -1,7 +1,7 @@
 namespace CT.Constants;
 
 /// <summary>
-/// 
+/// Programos palaikomi įvesties tipai.
 /// </summary>
 public enum InputType
 {

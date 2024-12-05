@@ -2,6 +2,13 @@ namespace CT.Services;
 
 public static class ChannelService
 {
+    /// <summary>
+    /// Siunčia vektorių per kanalą su klaido tikimybe p.
+    /// </summary>
+    /// <param name="random">Atsitiktinumo Generatorius</param>
+    /// <param name="p">Klaidos Tikimybė p</param>
+    /// <param name="vectors">Vektorius</param>
+    /// <returns>Iš kanalo išėjęs vektorius</returns>
     public static List<byte[]> Transmit(Random random, double p, List<byte[]> vectors)
     {
         var transmittedVectors = new List<byte[]>();

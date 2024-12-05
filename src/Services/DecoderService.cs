@@ -4,6 +4,13 @@ namespace CT.Services;
 
 public static class DecoderService
 {
+    /// <summary>
+    /// Dekoduoja vektorių sąrašą
+    /// </summary>
+    /// <param name="G">Generuojanti Matrica</param>
+    /// <param name="H">Patikrinimo Matrica</param>
+    /// <param name="input">Iš kanalo gautas vektorius</param>
+    /// <returns>Dekoduotas vektorius</returns>
     public static List<byte[]> Vector(byte[][] G, byte[][] H, List<byte[]> input)
     {
         var result = new List<byte[]>();
@@ -16,6 +23,13 @@ public static class DecoderService
         return result;
     }
 
+    /// <summary>
+    /// Dekoduoja vektorių
+    /// </summary>
+    /// <param name="G">Generuojanti Matrica</param>
+    /// <param name="H">Patikrinimo Matrica</param>
+    /// <param name="r">Iš kanalo gautas vektorius</param>
+    /// <returns>Dekoduotas vektorius</returns>
     public static byte[] Vector(byte[][] G, byte[][] H, byte[] r)
     {
         var syndromes = CalculateSyndromes(G, H);
@@ -43,6 +57,12 @@ public static class DecoderService
         return r[..G.Length];
     }
 
+    /// <summary>
+    /// Sudaro sindromų ir jų svorių lentelę
+    /// </summary>
+    /// <param name="G">Generuojanti Matrica</param>
+    /// <param name="H">Patikrinimo Matrica</param>
+    /// <returns></returns>
     private static Dictionary<string, int> CalculateSyndromes(byte[][] G, byte[][] H)
     {
         var n = G[0].Length;
@@ -54,6 +74,7 @@ public static class DecoderService
         {
             foreach (var indices in GetCombinations(n, weight))
             {
+                // Sukuriame klaidų vektorių e, įrašydami 1 į nurodytas pozicijas
                 var e = new byte[n];
                 foreach (var idx in indices)
                     e[idx] = 1;
@@ -62,7 +83,7 @@ public static class DecoderService
                 var s = H.Transpose().Multiply(e);
                 var sKey = s.Normalize();
 
-                // Išsaugome mažiausią klaidos svorį
+                // Išsaugome sindromo svorį, jei jo neturime, arba jis mažesnis
                 if (!syndromeWeights.TryGetValue(sKey, out int existingWeight) || existingWeight > weight)
                     syndromeWeights[sKey] = weight;
 

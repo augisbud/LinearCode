@@ -5,6 +5,11 @@ namespace CT.Extensions;
 
 public static class VectorExtensions
 {
+    /// <summary>
+    /// Nuskaito vektorių iš įvesties.
+    /// </summary>
+    /// <param name="codeDimension">Kodo Dimensija</param>
+    /// <returns></returns>
     public static byte[]? ReadVector(int codeDimension)
     {
         Console.WriteLine("Įveskite norimą vektorių:");
@@ -31,6 +36,13 @@ public static class VectorExtensions
 
         return vector;
     }
+
+    /// <summary>
+    /// Paruošia vektorių siuntimui.
+    /// </summary>
+    /// <param name="vector">Vektorius</param>
+    /// <param name="size">Skaidymo dydis</param>
+    /// <returns></returns>
     public static List<byte[]> Prepare(this byte[] vector, int size)
     {
         var prepared = new List<byte[]>();
@@ -46,6 +58,12 @@ public static class VectorExtensions
         return prepared;
     }
 
+    /// <summary>
+    /// Palygina du vektorius ir grąžina jų skirtumą.
+    /// </summary>
+    /// <param name="input">Pirmasis Vektorius</param>
+    /// <param name="other">Antrasis Vektorius</param>
+    /// <returns></returns>
     public static int Difference(this byte[] input, byte[] other)
     {
         var differences = 0;
@@ -59,6 +77,12 @@ public static class VectorExtensions
         return differences;
     }
 
+    /// <summary>
+    /// Palygina du vektorius ir grąžina ar jie sutampa.
+    /// </summary>
+    /// <param name="input">Pirmasis Vektorius</param>
+    /// <param name="other">Antrasis Vektorius</param>
+    /// <returns></returns>
     public static bool Compare(this byte[] input, byte[] other)
     {
         for (var i = 0; i < input.Length; i++)
@@ -70,6 +94,11 @@ public static class VectorExtensions
         return true;
     }
 
+    /// <summary>
+    /// Atspausdina skirtumus tarp dviejų vektorių.
+    /// </summary>
+    /// <param name="input">Pirmasis Vektorius</param>
+    /// <param name="other">Antrasis Vektorius</param>
     public static void PrintDifferences(this byte[] input, byte[] other)
     {
         var differences = 0;
@@ -91,6 +120,10 @@ public static class VectorExtensions
         Console.WriteLine("Jos pažymėtos: {0}", sb.ToString());
     }
 
+    /// <summary>
+    /// Atspausdina vektorių į konsolę.
+    /// </summary>
+    /// <param name="input">Vektorius atspausdinimui</param>
     public static void Print(this List<byte[]> input)
     {
         foreach (var vector in input)
@@ -100,7 +133,13 @@ public static class VectorExtensions
             Console.WriteLine();
         }
     }
-    
+
+    /// <summary>
+    /// Sudeda du vektorius.
+    /// </summary>
+    /// <param name="vector1">Pirmasis Vektorius</param>
+    /// <param name="vector2">Antrasis Vektorius</param>
+    /// <returns>Vektorių Sudėties Rezultatas</returns>
     public static byte[] Add(this byte[] vector1, byte[] vector2)
     {
         if (vector1.Length != vector2.Length)
@@ -116,6 +155,11 @@ public static class VectorExtensions
         return result;
     }
 
+    /// <summary>
+    /// Paverčia vektorių į tekstą.
+    /// </summary>
+    /// <param name="vector">Vektorius</param>
+    /// <returns>Paverstas tekstas</returns>
     public static string Normalize(this byte[] vector)
     {
         if (vector == null || vector.Length == 0)

@@ -5,6 +5,13 @@ namespace CT.Services;
 
 public static class InputService
 {
+    /// <summary>
+    /// Užkoduoja, išsiunčia per kanalą ir dekoduoja vektorių.
+    /// </summary>
+    /// <param name="vector">Įvesties Vektorius</param>
+    /// <param name="configuration">Programos Konfigūracija</param>
+    /// <param name="G">Generuojanti Matrica</param>
+    /// <param name="H">Patikrinimo Matrica</param>
     public static void ProccessVector(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H)
     {
         var input = new List<byte[]> { vector };
@@ -40,6 +47,13 @@ public static class InputService
         decoded.Print();
     }
 
+    /// <summary>
+    /// Užkoduoja, išsiunčia per kanalą ir dekoduoja tekstą išskaidytą į vektorių.
+    /// </summary>
+    /// <param name="vector">Įvesties Vektorius</param>
+    /// <param name="configuration">Programos Konfigūracija</param>
+    /// <param name="G">Generuojanti Matrica</param>
+    /// <param name="H">Patikrinimo Matrica</param>
     public static void ProccessText(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H)
     {
         var input = vector.Prepare(configuration.CodeDimension);
@@ -64,6 +78,12 @@ public static class InputService
         Console.WriteLine(decoded.ConvertFromBits(configuration.CodeDimension));
     }
 
+    /// <summary>
+    /// Testuoja visus galimus vektorius tam tikroje kodo dimensijoje.
+    /// </summary>
+    /// <param name="configuration">Programos Konfigūracija</param>
+    /// <param name="G">Generuojanti Matrica</param>
+    /// <param name="H">Patikrinimo Matrica</param>
     public static void ProccessTest(CodeParametersDto configuration, byte[][] G, byte[][] H)
     {
         var length = configuration.CodeDimension;

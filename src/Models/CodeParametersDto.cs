@@ -1,5 +1,8 @@
 namespace CT.Models;
 
+/// <summary>
+/// Programos kodo parametrų konfigūracinė klasė
+/// </summary>
 public class CodeParametersDto
 {
     public double ErrorRate { get; set; }          // p
