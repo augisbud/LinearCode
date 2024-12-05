@@ -47,25 +47,9 @@ switch (inputType)
 {
     case InputType.Vector:
     {
-        Console.WriteLine("Įveskite norimą vektorių:");
-        var vectorString = Console.ReadLine();
-        if (vectorString == null || vectorString == string.Empty || vectorString.Length != configuration.CodeDimension)
-        {
-            Console.WriteLine("Netinkamai įvestas vektorius.");
+        var vector = VectorExtensions.ReadVector(configuration.CodeDimension);
+        if(vector == null)
             return;
-        }
-
-        var vector = new byte[vectorString.Length];
-        for (int i = 0; i < vectorString.Length; i++)
-        {
-            vector[i] = (byte) char.GetNumericValue(vectorString[i]);
-
-            if(vector[i] != 0 && vector[i] != 1)
-            {
-                Console.WriteLine("Netinkamai įvestas vektorius.");
-                return;
-            }
-        }
 
         VectorService.ProccessVector(vector, configuration, G, H);
 

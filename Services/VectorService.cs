@@ -22,8 +22,21 @@ public static class VectorService
 
         encoded.First().PrintDifferences(transmitted.First());
 
+        Console.WriteLine("\nAr norite readaguoti iš kanalo išėjusį vektorių (t/n):");
+        var willEdit = Console.ReadLine();
+        Console.WriteLine();
+        if(willEdit == "t")
+        {
+            var readVector = VectorExtensions.ReadVector(configuration.CodeLength);
+            if(readVector == null)
+                return;
+
+            transmitted = [readVector];
+            Console.WriteLine();
+        }
+
         var decoded = DecoderService.Vector(G, H, transmitted);
-        Console.WriteLine("\nDekoduota įvestis:");
+        Console.WriteLine("Dekoduota įvestis:");
         decoded.Print();
     }
 

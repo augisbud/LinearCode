@@ -1,9 +1,34 @@
 using System.Text;
+using CT.Models;
 
 namespace CT.Extensions;
 
 public static class VectorExtensions
 {
+    public static byte[]? ReadVector(int codeDimension)
+    {
+        Console.WriteLine("Įveskite norimą vektorių:");
+        var vectorString = Console.ReadLine();
+        if (vectorString == null || vectorString == string.Empty || vectorString.Length != codeDimension)
+        {
+            Console.WriteLine("Netinkamai įvestas vektorius.");
+            return null;
+        }
+
+        var vector = new byte[vectorString.Length];
+        for (int i = 0; i < vectorString.Length; i++)
+        {
+            vector[i] = (byte) char.GetNumericValue(vectorString[i]);
+
+            if(vector[i] != 0 && vector[i] != 1)
+            {
+                Console.WriteLine("Netinkamai įvestas vektorius.");
+                return null;
+            }
+        }
+
+        return vector;
+    }
     public static List<byte[]> Prepare(this byte[] vector, int size)
     {
         var prepared = new List<byte[]>();
@@ -30,7 +55,7 @@ public static class VectorExtensions
             if (input[i] != other[i])
             {
                 differences++;
-                sb.Append($"[{input[i]}]"); 
+                sb.Append($"[{input[i]}->{other[i]}]"); 
             }
             else
                 sb.Append($"{input[i]}");
