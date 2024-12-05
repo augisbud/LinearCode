@@ -3,7 +3,7 @@ using CT.Models;
 
 namespace CT.Services;
 
-public static class VectorService
+public static class InputService
 {
     public static void ProccessVector(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H)
     {
@@ -16,7 +16,7 @@ public static class VectorService
         encoded.Print();
 
         var random = new Random();
-        var transmitted = Channel.Transmit(random, configuration.ErrorRate, encoded);
+        var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
         Console.WriteLine("\nIšsiųstą įvestis:");
         transmitted.Print();
 
@@ -51,7 +51,7 @@ public static class VectorService
         Console.WriteLine(encoded.ConvertFromBits(configuration.CodeDimension));
 
         var random = new Random();
-        var transmitted = Channel.Transmit(random, configuration.ErrorRate, encoded);
+        var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
         Console.WriteLine("\nIšsiųstą įvestis:");
         Console.WriteLine(transmitted.ConvertFromBits(configuration.CodeDimension));
 

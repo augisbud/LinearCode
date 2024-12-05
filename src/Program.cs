@@ -51,7 +51,7 @@ switch (inputType)
         if(vector == null)
             return;
 
-        VectorService.ProccessVector(vector, configuration, G, H);
+        InputService.ProccessVector(vector, configuration, G, H);
 
         break;
     }
@@ -68,7 +68,7 @@ switch (inputType)
 
         var vector = textString.ConvertToBits();
 
-        VectorService.ProccessText(vector, configuration, G, H);
+        InputService.ProccessText(vector, configuration, G, H);
 
         break;
     }

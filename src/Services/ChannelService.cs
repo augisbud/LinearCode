@@ -1,6 +1,6 @@
-namespace CT;
+namespace CT.Services;
 
-public static class Channel
+public static class ChannelService
 {
     public static List<byte[]> Transmit(Random random, double p, List<byte[]> vectors)
     {
