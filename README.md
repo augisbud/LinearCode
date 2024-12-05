@@ -9,10 +9,10 @@ Kodo parametrus p = ErrorRate (klaidos tikimybė), k = CodeDimension (dimensija)
         "CodeDimension": 4,
         "CodeLength": 7,
         "GeneratorMatrix": [
-            [1, 0, 0, 0, 1, 1, 0],
-            [0, 1, 0, 0, 1, 0, 1],
+            [1, 0, 0, 0, 1, 0, 1],
+            [0, 1, 0, 0, 1, 1, 1],
             [0, 0, 1, 0, 0, 1, 1],
-            [0, 0, 0, 1, 1, 1, 1]
+            [0, 0, 0, 1, 1, 1, 0]
         ]
     }   
 }
@@ -20,10 +20,10 @@ Kodo parametrus p = ErrorRate (klaidos tikimybė), k = CodeDimension (dimensija)
 Taip pat, galima nenurodyti generuojančiosios matricos, t.y arba visiškai pašalinti:
 ```json
 "GeneratorMatrix": [
-    [1, 0, 0, 0, 1, 1, 0],
-    [0, 1, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1],
+    [0, 1, 0, 0, 1, 1, 1],
     [0, 0, 1, 0, 0, 1, 1],
-    [0, 0, 0, 1, 1, 1, 1]
+    [0, 0, 0, 1, 1, 1, 0]
 ]
 ```
 arba nustatyti vertę `"GeneratorMatrix": null`, nenurodžius generuojančios matricos, programa pati sugeneruos atsitiktinę matricą atitinkančia G = \[Ik|P\] formą.
@@ -74,13 +74,69 @@ Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą 
 - Pasirinkęs tekstą, vartotojas turi įvesti tekstą;
 - Vartotojui parodoma originali įvestis, užkoduota įvestis (tačiau konvertuota į skaitomą tekstą), išsiųsta įvestis (tačiau konvertuota į skaitomą tekstą), įvestis, kuri buvo iškart dekoduota (t.y nesiunčiama kanalu) ir iš kanalo gauta ir dekoduota įvestis.
 
-Programos konfiguracijos pavyzdys:
+Programos konfiguracijos pavyzdys:<br />
 ![Programos konfiguracijos pavyzdys](images/example_configuration.png)
 
-Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant vektorių:
+Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant vektorių (žaliai pažymėtos vartotojo įvestis):
 ![Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant vektorių](images/example_vector.png)
 
-Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant tekstą:
+Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant tekstą (žaliai pažymėtos vartotojo įvestis):
 ![Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant tekstą](images/example_text.png)
 
 ### Programiniai sprendimai
+Teksto skaidymas į vektorius:
+- Naudojamas Encoding.ASCII.GetBytes(input) metodas, kuris paverčia pradinį tekstą į baitų masyvą;
+- Sukuriamas naujas baitų masyvas bits, kurio dydis yra 8 kartus didesnis už pradinį baitų masyvą, nes kiekvienas baitas turi 8 bitus;
+- Kiekvienas baitas iš pradinio masyvo yra paverčiamas į bitus naudojant bitų poslinkio operatorių (>>) ir bitų AND operatorių (&);
+- Gautas bitų masyvas grąžinamas kaip rezultatas;
+- Jei tekstą suskaidžius vektoriais negaunamas pilnas vektorius, tai reiškia, kad kažkur įvyko klaida arba neteisingai buvo atliktas skaidymas. Šis metodas (ConvertToBits iš [Extensions/StringExtensions.cs](src/Extensions/StringExtensions.cs)) užtikrina, kad kiekvienas baitas bus paverstas į 8 bitus, todėl visada gaunamas pilnas bitų masyvas.
+
+Teksto vektorių siuntimas kanalu:
+- Tekstas, kuris paverstas į bitų masyvą yra toliau skaidomas kodo dimensijos dydžio vektoriais, tai leidžia užtikrinti vientisą užkodavimą ir dekodavimą, tačiau reikalauja į tai atsižvelgti viso proceso metu.
+
+### Ekperimentai
+
+NR. 1
+Kodo parametrai (appsettings.json):
+```json
+{
+    "CodeParameters": {
+        "ErrorRate": 0.1,
+        "CodeDimension": 3,
+        "CodeLength": 6,
+        "GeneratorMatrix": [
+            [1, 0, 0, 1, 1, 0],
+            [0, 1, 0, 0, 1, 1],
+            [0, 0, 1, 1, 0, 1]
+        ]
+    }   
+}
+```
+
+Bandytos įvestys -> Užkoduotas įvestys -> Išsiųstos įvestys -> Klaidos -> Dekoduotos įvestys:
+000 -> 000000 -> 000000 -> 0 -> 000<br />
+001 -> 001101 -> 000101 -> 1 -> 001<br />
+010 -> 010011 -> 011011 -> 1 -> 010<br />
+100 -> 100110 -> 000101 -> 3 -> 001<br />!
+011 -> 011110 -> 111010 -> 2 -> 111<br />!
+101 -> 101011 -> 000001 -> 3 -> 000<br />!
+111 -> 111000 -> 011000 -> 1 -> 111<br />
+
+NR. 2
+Kodo parametrai (appsettings.json):
+```json
+{
+    "CodeParameters": {
+        "ErrorRate": 0.1,
+        "CodeDimension": 4,
+        "CodeLength": 7,
+        "GeneratorMatrix": [
+            [1, 0, 0, 0, 1, 0, 1],
+            [0, 1, 0, 0, 1, 1, 1],
+            [0, 0, 1, 0, 0, 1, 1],
+            [0, 0, 0, 1, 1, 1, 0]
+        ]
+    }   
+}
+```
+Bandytos įvestys -> Užkoduotas įvestys -> Išsiųstos įvestys -> Klaidos -> Dekoduotos įvestys:
