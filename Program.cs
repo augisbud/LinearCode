@@ -49,7 +49,7 @@ switch (inputType)
     {
         Console.WriteLine("Įveskite norimą vektorių:");
         var vectorString = Console.ReadLine();
-        if (vectorString == null || vectorString == string.Empty || vectorString.Length % configuration.CodeDimension != 0)
+        if (vectorString == null || vectorString == string.Empty || vectorString.Length != configuration.CodeDimension)
         {
             Console.WriteLine("Netinkamai įvestas vektorius.");
             return;

@@ -7,8 +7,8 @@ public static class VectorService
 {
     public static void ProccessVector(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H)
     {
-        var input = vector.Prepare(configuration.CodeDimension);
-        Console.WriteLine("Originali, išskaidytą įvestis:");
+        var input = new List<byte[]> { vector };
+        Console.WriteLine("Originali įvestis:");
         input.Print();
 
         var encoded = EncoderService.Vector(G, input);
@@ -20,8 +20,7 @@ public static class VectorService
         Console.WriteLine("\nIšsiųstą įvestis:");
         transmitted.Print();
 
-        // TODO: show bytes that differ.
-        Console.WriteLine("\nIšsiųstos ir gautos įvestys skiriasi {0} vietose.", encoded.Difference(transmitted));
+        encoded.First().PrintDifferences(transmitted.First());
 
         var decoded = DecoderService.Vector(G, H, transmitted);
         Console.WriteLine("\nDekoduota įvestis:");

@@ -19,32 +19,25 @@ public static class VectorExtensions
         return prepared;
     }
 
-    public static int Difference(this List<byte[]> vector1, List<byte[]> vector2)
+    public static void PrintDifferences(this byte[] input, byte[] other)
     {
-        if (vector1.Count != vector2.Count)
-            throw new ArgumentException("Vektorių skaičius turi sutapti.");
+        var differences = 0;
+        var maxLength = Math.Max(input.Length, other.Length);
+        var sb = new StringBuilder();
 
-        var difference = 0;
-        for (var i = 0; i < vector1.Count; i++)
+        for (int i = 0; i < maxLength; i++)
         {
-            difference += vector1[i].Difference(vector2[i]);
+            if (input[i] != other[i])
+            {
+                differences++;
+                sb.Append($"[{input[i]}]"); 
+            }
+            else
+                sb.Append($"{input[i]}");
         }
 
-        return difference;
-    }
-
-    public static int Difference(this byte[] vector1, byte[] vector2)
-    {
-        if (vector1.Length != vector2.Length)
-            throw new ArgumentException("Vektorių ilgis turi sutapti.");
-
-        var difference = 0;
-        for (var i = 0; i < vector1.Length; i++)
-        {
-            difference += vector1[i] != vector2[i] ? 1 : 0;
-        }
-
-        return difference;
+        Console.WriteLine("\nIšsiųstos ir gautos įvestys skiriasi {0} vietose.", differences);
+        Console.WriteLine("Jos pažymėtos: {0}", sb.ToString());
     }
 
     public static void Print(this List<byte[]> input)
