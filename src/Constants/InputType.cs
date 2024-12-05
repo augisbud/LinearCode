@@ -1,5 +1,8 @@
 namespace CT.Constants;
 
+/// <summary>
+/// 
+/// </summary>
 public enum InputType
 {
     Vector = 1,

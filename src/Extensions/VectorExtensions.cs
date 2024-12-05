@@ -12,6 +12,7 @@ public static class VectorExtensions
         if (vectorString == null || vectorString == string.Empty || vectorString.Length != codeDimension)
         {
             Console.WriteLine("Netinkamai įvestas vektorius.");
+            Console.ReadLine();
             return null;
         }
 
@@ -23,6 +24,7 @@ public static class VectorExtensions
             if(vector[i] != 0 && vector[i] != 1)
             {
                 Console.WriteLine("Netinkamai įvestas vektorius.");
+                Console.ReadLine();
                 return null;
             }
         }

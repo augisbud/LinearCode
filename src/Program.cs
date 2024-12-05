@@ -1,6 +1,4 @@
-﻿using System.Text;
-using CT;
-using CT.Constants;
+﻿using CT.Constants;
 using CT.Extensions;
 using CT.Models;
 using CT.Services;
@@ -16,6 +14,7 @@ var configuration = new ConfigurationBuilder()
 if (configuration == null)
 {
     Console.WriteLine("Nepavyko nuskaityti konfigūracijos. Ar turite appsettings.json failą su 'CodeParameters' sekciją kaip nurodyta README.md?");
+    Console.ReadLine();
     return;
 }
 
@@ -24,6 +23,7 @@ var G = configuration.GeneratorMatrix ?? MatrixExtensions.Generator(configuratio
 if(!G.IsStandardForm())
 {
     Console.WriteLine("Generuojanti matrica turi būti standartinės formos [Ik|P].");
+    Console.ReadLine();
     return;
 }
 
@@ -39,6 +39,7 @@ var inputTypeString = Console.ReadLine();
 if (!Enum.TryParse(inputTypeString, out InputType inputType))
 {
     Console.WriteLine("Netinkamai pasirinktas žinutės tipas.");
+    Console.ReadLine();
     return;
 }
 
@@ -61,6 +62,7 @@ switch (inputType)
         if (textString == null || textString == string.Empty)
         {
             Console.WriteLine("Netinkamai įvestas tekstas.");
+            Console.ReadLine();
             return;
         }
 
@@ -71,3 +73,5 @@ switch (inputType)
         break;
     }
 }
+
+Console.ReadLine();
