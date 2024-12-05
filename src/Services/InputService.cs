@@ -63,4 +63,38 @@ public static class InputService
         Console.WriteLine("\nDekoduota įvestis:");
         Console.WriteLine(decoded.ConvertFromBits(configuration.CodeDimension));
     }
+
+    public static void ProccessTest(CodeParametersDto configuration, byte[][] G, byte[][] H)
+    {
+        var length = configuration.CodeDimension;
+        var numCombinations = (int) Math.Pow(2, length);
+        var combinations = new List<byte[]>();
+
+        for (var i = 0; i < numCombinations; i++)
+        {
+            var combination = new byte[length];
+            for (var j = 0; j < length; j++)
+                combination[j] = (byte)((i >> j) & 1);
+            combinations.Add(combination);
+        }
+
+        var random = new Random();
+        foreach (var combo in combinations)
+        {
+            var input = new List<byte[]> { combo };
+            input.Print();
+            var encoded = EncoderService.Vector(G, input);
+            encoded.Print();
+            var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
+            transmitted.Print();
+            var decoded = DecoderService.Vector(G, H, transmitted);
+            Console.WriteLine(decoded.First().Difference(combo));
+            decoded.Print();
+
+            if(!input.First().Compare(decoded.First()))
+                Console.WriteLine("Klaida");
+
+            Console.WriteLine();
+        }
+    }
 }

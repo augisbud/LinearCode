@@ -17,7 +17,7 @@ public static class VectorExtensions
         }
 
         var vector = new byte[vectorString.Length];
-        for (int i = 0; i < vectorString.Length; i++)
+        for (var i = 0; i < vectorString.Length; i++)
         {
             vector[i] = (byte) char.GetNumericValue(vectorString[i]);
 
@@ -46,13 +46,37 @@ public static class VectorExtensions
         return prepared;
     }
 
+    public static int Difference(this byte[] input, byte[] other)
+    {
+        var differences = 0;
+
+        for (var i = 0; i < input.Length; i++)
+        {
+            if (input[i] != other[i])
+                differences++;
+        }
+
+        return differences;
+    }
+
+    public static bool Compare(this byte[] input, byte[] other)
+    {
+        for (var i = 0; i < input.Length; i++)
+        {
+            if (input[i] != other[i])
+                return false;
+        }
+
+        return true;
+    }
+
     public static void PrintDifferences(this byte[] input, byte[] other)
     {
         var differences = 0;
         var maxLength = Math.Max(input.Length, other.Length);
         var sb = new StringBuilder();
 
-        for (int i = 0; i < maxLength; i++)
+        for (var i = 0; i < maxLength; i++)
         {
             if (input[i] != other[i])
             {
@@ -72,7 +96,7 @@ public static class VectorExtensions
         foreach (var vector in input)
         {
             foreach (var cell in vector)
-                Console.Write(cell + " ");
+                Console.Write(cell);
             Console.WriteLine();
         }
     }

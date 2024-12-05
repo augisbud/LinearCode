@@ -34,7 +34,7 @@ G.Print();
 Console.WriteLine("\nKontrolinė Matrica H:");
 H.Print();
 
-Console.WriteLine("\n\nPasirinkite įvesties tipą (1 - vektorius, 2 - tekstas):");
+Console.WriteLine("\n\nPasirinkite įvesties tipą (1 - vektorius, 2 - tekstas, 3 - testavimas):");
 var inputTypeString = Console.ReadLine();
 if (!Enum.TryParse(inputTypeString, out InputType inputType))
 {
@@ -69,6 +69,13 @@ switch (inputType)
         var vector = textString.ConvertToBits();
 
         InputService.ProccessText(vector, configuration, G, H);
+
+        break;
+    }
+    case InputType.Test:
+    {
+        Console.WriteLine();
+        InputService.ProccessTest(configuration, G, H);
 
         break;
     }

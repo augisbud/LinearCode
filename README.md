@@ -74,6 +74,8 @@ Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą 
 - Pasirinkęs tekstą, vartotojas turi įvesti tekstą;
 - Vartotojui parodoma originali įvestis, užkoduota įvestis (tačiau konvertuota į skaitomą tekstą), išsiųsta įvestis (tačiau konvertuota į skaitomą tekstą), įvestis, kuri buvo iškart dekoduota (t.y nesiunčiama kanalu) ir iš kanalo gauta ir dekoduota įvestis.
 
+- Testavimui su skirtingų ilgių vektoriais pateikiamas 3 - čias programos veikimo režimas, kuris pats sugeneruoja visus galimus vektorius ir parodo, originalų vektorių, užkoduotą vektorių, išsiųstą vektorių ir dekoduotą vektorių.
+
 Programos konfiguracijos pavyzdys:<br />
 ![Programos konfiguracijos pavyzdys](images/example_configuration.png)
 
@@ -117,9 +119,10 @@ Bandytos įvestys -> Užkoduotas įvestys -> Išsiųstos įvestys -> Klaidos -> 
 000 -> 000000 -> 000000 -> 0 -> 000<br />
 001 -> 001101 -> 000101 -> 1 -> 001<br />
 010 -> 010011 -> 011011 -> 1 -> 010<br />
-100 -> 100110 -> 000101 -> 3 -> 001<br />!
-011 -> 011110 -> 111010 -> 2 -> 111<br />!
-101 -> 101011 -> 000001 -> 3 -> 000<br />!
+100 -> 100110 -> 000101 -> 3 -> 001!<br />
+011 -> 011110 -> 111010 -> 2 -> 111!<br />
+101 -> 101011 -> 000001 -> 3 -> 000!<br />
+110 -> 110101 -> 110101 -> 0 -> 110<br />
 111 -> 111000 -> 011000 -> 1 -> 111<br />
 
 NR. 2
@@ -140,3 +143,24 @@ Kodo parametrai (appsettings.json):
 }
 ```
 Bandytos įvestys -> Užkoduotas įvestys -> Išsiųstos įvestys -> Klaidos -> Dekoduotos įvestys:
+0000 -> 0000000 -> 0001000 -> 1 -> 0000<br />
+0001 -> 0001110 -> 0001110 -> 0 -> 0001<br />
+0010 -> 0010011 -> 0110011 -> 1 -> 0010<br />
+0100 -> 0100111 -> 0100111 -> 0 -> 0100<br />
+1000 -> 1000101 -> 1000111 -> 1 -> 1000<br />
+0011 -> 0011101 -> 1011101 -> 1 -> 0011<br />
+0101 -> 0101001 -> 0101001 -> 0 -> 0101<br />
+0110 -> 0110100 -> 0110100 -> 0 -> 0110<br />
+0111 -> 0111010 -> 0111010 -> 0 -> 0111<br />
+1001 -> 1001011 -> 1001010 -> 1 -> 1001<br />
+1010 -> 1010110 -> 1011110 -> 1 -> 1010<br />
+1100 -> 1100010 -> 1100010 -> 0 -> 1100<br />
+1011 -> 1011000 -> 0111000 -> 2 -> 0111!<br />
+1101 -> 1101100 -> 1000101 -> 2 -> 1000!<br />
+1110 -> 1110001 -> 1111001 -> 1 -> 1110<br />
+1111 -> 1111111 -> 1011100 -> 3 -> 1011!<br />
+
+Iš eksperimentų matome, kad tiesinis kodas patikimai ištaiso tik tada, kai siuntimo metu padaryta 1 klaida.
+
+Rezultatai pavaizduoti grafu:
+![Eksperimentų Rezultatai](images/statistics.png)

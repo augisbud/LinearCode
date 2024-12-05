@@ -81,7 +81,7 @@ public static class DecoderService
             yield break;
 
         var result = new int[k];
-        for (int i = 0; i < k; i++)
+        for (var i = 0; i < k; i++)
             result[i] = i;
 
         while (true)
@@ -97,7 +97,7 @@ public static class DecoderService
                 yield break;
 
             result[i]++;
-            for (int j = i + 1; j < k; j++)
+            for (var j = i + 1; j < k; j++)
                 result[j] = result[j - 1] + 1;
         }
     }

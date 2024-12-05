@@ -8,9 +8,9 @@ public static class MatrixExtensions
 
     public static bool IsStandardForm(this byte[][] matrix)
     {
-        for (int i = 0; i < matrix.Length; i++)
+        for (var i = 0; i < matrix.Length; i++)
         {
-            for (int j = 0; j < matrix.Length; j++)
+            for (var j = 0; j < matrix.Length; j++)
             {
                 if (i == j && matrix[i][j] != 1)
                     return false;
@@ -26,11 +26,11 @@ public static class MatrixExtensions
     {
         var matrix = new byte[k][];
 
-        for (int i = 0; i < k; i++)
+        for (var i = 0; i < k; i++)
         {
             matrix[i] = new byte[n];
 
-            for (int j = 0; j < n; j++)
+            for (var j = 0; j < n; j++)
             {
                 if (k - j > 0 && i == j)
                     matrix[i][j] = 1;
@@ -49,40 +49,40 @@ public static class MatrixExtensions
         int k = generatorMatrix.Length;
 
         byte[][] P = new byte[k][];
-        for (int i = 0; i < k; i++)
+        for (var i = 0; i < k; i++)
         {
             P[i] = new byte[n - k];
             Array.Copy(generatorMatrix[i], k, P[i], 0, n - k);
         }
 
         byte[][] PT = new byte[n - k][];
-        for (int i = 0; i < n - k; i++)
+        for (var i = 0; i < n - k; i++)
         {
             PT[i] = new byte[k];
-            for (int j = 0; j < k; j++)
+            for (var j = 0; j < k; j++)
             {
                 PT[i][j] = (byte)(P[j][i] == 0 ? 0 : 1);
             }
         }
 
         byte[][] I = new byte[n - k][];
-        for (int i = 0; i < n - k; i++)
+        for (var i = 0; i < n - k; i++)
         {
             I[i] = new byte[n - k];
             I[i][i] = 1;
         }
 
         byte[][] H = new byte[n - k][];
-        for (int i = 0; i < n - k; i++)
+        for (var i = 0; i < n - k; i++)
         {
             H[i] = new byte[n];
 
-            for (int j = 0; j < k; j++)
+            for (var j = 0; j < k; j++)
             {
                 H[i][j] = PT[i][j];
             }
 
-            for (int j = 0; j < n - k; j++)
+            for (var j = 0; j < n - k; j++)
             {
                 H[i][k + j] = I[i][j];
             }
@@ -97,10 +97,10 @@ public static class MatrixExtensions
         int cols = matrix[0].Length;
         var transposed = new byte[cols][];
 
-        for (int i = 0; i < cols; i++)
+        for (var i = 0; i < cols; i++)
         {
             transposed[i] = new byte[rows];
-            for (int j = 0; j < rows; j++)
+            for (var j = 0; j < rows; j++)
             {
                 transposed[i][j] = matrix[j][i];
             }
@@ -119,10 +119,10 @@ public static class MatrixExtensions
 
         var result = new byte[cols];
 
-        for (int j = 0; j < cols; j++)
+        for (var j = 0; j < cols; j++)
         {
             byte sum = 0;
-            for (int i = 0; i < rows; i++)
+            for (var i = 0; i < rows; i++)
                 sum ^= (byte)(matrix[i][j] * vector[i]);
 
             result[j] = (byte)(sum % 2);

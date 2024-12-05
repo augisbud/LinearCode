@@ -12,7 +12,7 @@ public static class StringExtentions
         int index = 0;
 
         foreach (byte b in bytes)
-            for (int i = 7; i >= 0; i--)
+            for (var i = 7; i >= 0; i--)
                 bits[index++] = (byte)((b >> i) & 1);
 
         return bits;
@@ -22,19 +22,19 @@ public static class StringExtentions
     {
         var bytes = new List<byte>();
 
-        for (int i = 0; i < input.Count; i += codeDimension)
+        for (var i = 0; i < input.Count; i += codeDimension)
         {
             byte b = 0;
             int bitIndex = 0;
 
-            for (int j = 0; j < codeDimension; j++)
+            for (var j = 0; j < codeDimension; j++)
             {
                 if (i + j >= input.Count)
                     break;
 
                 var bitArray = input[i + j];
 
-                for (int k = 0; k < codeDimension; k++)
+                for (var k = 0; k < codeDimension; k++)
                 {
                     b = (byte)(b << 1 | bitArray[k]);
                     bitIndex++;

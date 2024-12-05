@@ -6,5 +6,6 @@ namespace CT.Constants;
 public enum InputType
 {
     Vector = 1,
-    Text = 2
+    Text = 2,
+    Test = 3
 }
