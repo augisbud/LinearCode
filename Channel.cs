@@ -2,9 +2,8 @@ namespace CT;
 
 public static class Channel
 {
-    public static List<byte[]> Transmit(double p, List<byte[]> vectors)
+    public static List<byte[]> Transmit(Random random, double p, List<byte[]> vectors)
     {
-        var random = new Random();
         var transmittedVectors = new List<byte[]>();
 
         foreach (var vector in vectors)

@@ -19,6 +19,34 @@ public static class VectorExtensions
         return prepared;
     }
 
+    public static int Difference(this List<byte[]> vector1, List<byte[]> vector2)
+    {
+        if (vector1.Count != vector2.Count)
+            throw new ArgumentException("Vektorių skaičius turi sutapti.");
+
+        var difference = 0;
+        for (var i = 0; i < vector1.Count; i++)
+        {
+            difference += vector1[i].Difference(vector2[i]);
+        }
+
+        return difference;
+    }
+
+    public static int Difference(this byte[] vector1, byte[] vector2)
+    {
+        if (vector1.Length != vector2.Length)
+            throw new ArgumentException("Vektorių ilgis turi sutapti.");
+
+        var difference = 0;
+        for (var i = 0; i < vector1.Length; i++)
+        {
+            difference += vector1[i] != vector2[i] ? 1 : 0;
+        }
+
+        return difference;
+    }
+
     public static void Print(this List<byte[]> input)
     {
         foreach (var vector in input)

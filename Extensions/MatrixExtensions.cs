@@ -6,6 +6,22 @@ public static class MatrixExtensions
 {
     private static readonly Random _random = new();
 
+    public static bool IsStandardForm(this byte[][] matrix)
+    {
+        for (int i = 0; i < matrix.Length; i++)
+        {
+            for (int j = 0; j < matrix.Length; j++)
+            {
+                if (i == j && matrix[i][j] != 1)
+                    return false;
+                if (i != j && matrix[i][j] != 0)
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
     public static byte[][] Generator(int n, int k)
     {
         var matrix = new byte[k][];
