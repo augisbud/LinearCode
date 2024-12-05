@@ -15,10 +15,9 @@ var configuration = new ConfigurationBuilder()
 
 if (configuration == null)
 {
-    Console.WriteLine("Nepavyko nuskaityti konfigūracijos.");
+    Console.WriteLine("Nepavyko nuskaityti konfigūracijos. Ar turite appsettings.json failą su 'CodeParameters' sekciją kaip nurodyta README.md?");
     return;
 }
-
 
 var G = configuration.GeneratorMatrix ?? MatrixExtensions.Generator(configuration.CodeLength, configuration.CodeDimension);
 
