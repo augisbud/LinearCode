@@ -58,12 +58,15 @@ public static class DecoderService
                 foreach (var idx in indices)
                     e[idx] = 1;
 
+                // Naudojame matricą H, kad apskaičiuotume sindromą
                 var s = H.Transpose().Multiply(e);
                 var sKey = s.Normalize();
 
+                // Išsaugome mažiausią klaidos svorį
                 if (!syndromeWeights.TryGetValue(sKey, out int existingWeight) || existingWeight > weight)
                     syndromeWeights[sKey] = weight;
 
+                // Baigiame darbą, kai surašytos visos galimos kombinacijos
                 if (syndromeWeights.Count >= totalSyndromes)
                     break;
             }
@@ -75,6 +78,7 @@ public static class DecoderService
         return syndromeWeights;
     }
 
+    // Sugeneruojame visus įmanomus klaidų kombinacijas (k klaidų, n ilgio vektoriams)
     private static IEnumerable<int[]> GetCombinations(int n, int k)
     {
         if (k > n || k < 0)

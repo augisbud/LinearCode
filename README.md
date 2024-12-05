@@ -164,3 +164,9 @@ Iš eksperimentų matome, kad tiesinis kodas patikimai ištaiso tik tada, kai si
 
 Rezultatai pavaizduoti grafu:
 ![Eksperimentų Rezultatai](images/statistics.png)
+
+### Naudota Literatūra
+- A11 užduoties aptarimas;
+- [Literatūra21.pdf](https://klevas.mif.vu.lt/~skersys/doc/ktkt/literatura21.pdf);
+- [Parity-Check matrix](https://en.wikipedia.org/wiki/Parity-check_matrix);
+- [Constructing syndrome decoding table](https://math.stackexchange.com/questions/1505517/constructing-syndrome-decoding-table);
