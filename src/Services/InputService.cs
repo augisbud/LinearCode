@@ -56,26 +56,26 @@ public static class InputService
     /// <param name="H">Patikrinimo Matrica</param>
     public static void ProccessText(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H)
     {
-        var input = vector.Prepare(configuration.CodeDimension);
+        var input = vector.Prepare(8, configuration.CodeDimension);
         Console.WriteLine("Originali, išskaidytą įvestis:");
-        Console.WriteLine(input.ConvertFromBits(configuration.CodeDimension));
+        Console.WriteLine(input.ConvertFromBits(8, configuration.CodeDimension));
 
         var encoded = EncoderService.Vector(G, input);
         Console.WriteLine("\nUžkoduota įvestis:");
-        Console.WriteLine(encoded.ConvertFromBits(configuration.CodeDimension));
+        Console.WriteLine(encoded.ConvertFromBits(8, configuration.CodeDimension));
 
         var random = new Random();
         var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
         Console.WriteLine("\nIšsiųstą įvestis:");
-        Console.WriteLine(transmitted.ConvertFromBits(configuration.CodeDimension));
+        Console.WriteLine(transmitted.ConvertFromBits(8, configuration.CodeDimension));
 
         var rawDecoded = DecoderService.Vector(G, H, encoded);
         Console.WriteLine("\nIškart dekoduota įvestis:");
-        Console.WriteLine(rawDecoded.ConvertFromBits(configuration.CodeDimension));
+        Console.WriteLine(rawDecoded.ConvertFromBits(8, configuration.CodeDimension));
 
         var decoded = DecoderService.Vector(G, H, transmitted);
         Console.WriteLine("\nDekoduota įvestis:");
-        Console.WriteLine(decoded.ConvertFromBits(configuration.CodeDimension));
+        Console.WriteLine(decoded.ConvertFromBits(8, configuration.CodeDimension));
     }
 
     /// <summary>

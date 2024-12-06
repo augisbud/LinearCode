@@ -29,43 +29,41 @@ public static class StringExtentions
     /// <param name="input">Bitų masyvas</param>
     /// <param name="codeDimension">Kodo dimensija</param>
     /// <returns>Paverstas tekstas</returns>
-    public static string ConvertFromBits(this List<byte[]> input, int codeDimension)
+    public static string ConvertFromBits(this List<byte[]> input, int size, int desiredSize)
     {
-        var bytes = new List<byte>();
+        var vectorList = new List<byte[]>();
 
-        for (var i = 0; i < input.Count; i += codeDimension)
+        foreach(var chunk in input)
         {
-            byte b = 0;
-            int bitIndex = 0;
-
-            for (var j = 0; j < codeDimension; j++)
+            if(desiredSize < size)
             {
-                if (i + j >= input.Count)
-                    break;
-
-                var bitArray = input[i + j];
-
-                for (var k = 0; k < codeDimension; k++)
-                {
-                    b = (byte)(b << 1 | bitArray[k]);
-                    bitIndex++;
-
-                    if (bitIndex == 8)
-                    {
-                        bytes.Add(b);
-                        b = 0;
-                        bitIndex = 0;
-                    }
-                }
+                var useful = size % desiredSize;
+                var vector = new byte[useful];
+                Array.Copy(chunk, 0, vector, 0, useful);
+                vectorList.Add(vector);
             }
-
-            if (bitIndex > 0)
+            else
             {
-                b <<= (8 - bitIndex);
-                bytes.Add(b);
+                var vector = new byte[size];
+                Array.Copy(chunk, 0, vector, 0, size);
+                vectorList.Add(vector);
             }
         }
 
-        return Encoding.ASCII.GetString(bytes.ToArray());
+        var bits = vectorList.SelectMany(a => a).ToArray();
+
+        var bytes = new byte[bits.Length / size];
+
+        int index = 0;
+        for (var i = 0; i < bits.Length; i += size)
+        {
+            byte b = 0;
+            for (var j = 0; j < size; j++)
+                b = (byte)((b << 1) + bits[i + j]);
+
+            bytes[index++] = b;
+        }
+
+        return Encoding.ASCII.GetString([.. bytes]);
     }
 }

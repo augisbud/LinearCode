@@ -43,16 +43,40 @@ public static class VectorExtensions
     /// <param name="vector">Vektorius</param>
     /// <param name="size">Skaidymo dydis</param>
     /// <returns></returns>
-    public static List<byte[]> Prepare(this byte[] vector, int size)
+    public static List<byte[]> Prepare(this byte[] vector, int size, int desiredSize)
     {
-        var prepared = new List<byte[]>();
+        var individual = new List<byte[]>();
 
         for (var i = 0; i < vector.Length; i += size)
         {
             var chunk = new byte[size];
-            Array.Copy(vector, i, chunk, 0, size);
+            Array.Copy(vector, i, chunk, 0, Math.Min(size, vector.Length - i));
+            individual.Add(chunk);
+        }
 
-            prepared.Add(chunk);
+        var prepared = new List<byte[]>();
+
+        foreach(var chunk in individual)
+        {
+            if (desiredSize < size)
+            {
+                var useful = size % desiredSize;
+
+                for(var i = 0; i < chunk.Length; i++)
+                {
+                    var newVector = new byte[desiredSize];
+                    Array.Copy(chunk, i, newVector, 0, useful);
+                    prepared.Add(newVector);
+
+                    i += useful - 1;
+                }
+            }
+            else
+            {
+                var newVector = new byte[desiredSize];
+                Array.Copy(chunk, 0, newVector, 0, chunk.Length);
+                prepared.Add(newVector);
+            }
         }
 
         return prepared;

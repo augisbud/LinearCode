@@ -56,14 +56,7 @@ switch (inputType)
         break;
     }
     case InputType.Text:
-    {
-        if(configuration.CodeDimension % 2 != 0)
-        {
-            Console.WriteLine("Kodo dimensija turi būti lyginė.");
-            Console.ReadLine();
-            return;
-        }
-        
+    {       
         Console.WriteLine("Įveskite norimą tekstą:");
         var textString = Console.ReadLine();
         if (textString == null || textString == string.Empty)
