@@ -91,7 +91,7 @@ Teksto skaidymas į vektorius:
 - Sukuriamas naujas baitų masyvas bits, kurio dydis yra 8 kartus didesnis už pradinį baitų masyvą, nes kiekvienas baitas turi 8 bitus;
 - Kiekvienas baitas iš pradinio masyvo yra paverčiamas į bitus naudojant bitų poslinkio operatorių (>>) ir bitų AND operatorių (&);
 - Gautas bitų masyvas grąžinamas kaip rezultatas;
-- Jei tekstą suskaidžius vektoriais negaunamas pilnas vektorius, tai reiškia, kad kažkur įvyko klaida arba neteisingai buvo atliktas skaidymas. Šis metodas (ConvertToBits iš [Extensions/StringExtensions.cs](src/Extensions/StringExtensions.cs)) užtikrina, kad kiekvienas baitas bus paverstas į 8 bitus, todėl visada gaunamas pilnas bitų masyvas.
+- Jei tekstą suskaidžius vektoriais turint lyginę kodo dimensija (<= 8) yra negaunamas pilnas vektorius, tai reiškia, kad kažkur įvyko klaida arba neteisingai buvo atliktas skaidymas. Metodas (ConvertToBits iš [Extensions/StringExtensions.cs](src/Extensions/StringExtensions.cs)) užtikrina, kad kiekvienas baitas bus paverstas į 8 bitus, todėl visada gaunamas pilnas bitų masyvas.
 
 Teksto vektorių siuntimas kanalu:
 - Tekstas, kuris paverstas į bitų masyvą yra toliau skaidomas kodo dimensijos dydžio vektoriais, tai leidžia užtikrinti vientisą užkodavimą ir dekodavimą, tačiau reikalauja į tai atsižvelgti viso proceso metu.
