@@ -33,9 +33,6 @@ Pastaba: programa palaiko tik standartinio pavidalo generuojančią matricą, je
 
 # Ataskaita
 
-## Trūkumai
-- Nerealizuotas 3 - čiasis scenarijus (paveiksliukų kodavimo ir dekodavimo);
-
 ## Trečiųjų šalių funkcijų bibliotekos
 - `Microsoft.Extensions.Configuration.*` - naudojama nuskaityti programos konfiguraciją iš failo, įrašoma ir nurodoma `CT.csproj` faile, panaudojama `using Microsoft.Extensions.Configuration`;
 - `System.Text` - ASCII ir Unicode simbolių kodavimo klasės; abstrakčios bazinės klasės, skirtos simbolių blokams konvertuoti į baitų blokus ir iš jų; ir pagalbinė klasė, kuri manipuliuoja „String“ objektais ir juos formatuoja nekurdama tarpinių „String“ egzempliorių, panaudojama `using System.Text`;
@@ -50,6 +47,7 @@ Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą 
 
 ## Kodo failų aprašymas
 - [Constants/InputType.cs](src/Constants/InputType.cs) - aprašomi galimi įvesties tipai;
+- [Extensions/ByteExtensions.cs](src/Extensions/ByteExtensions.cs) - aprašomi pagalbiniai metodai su baitų tipo duomenimis.
 - [Extensions/MatrixExtensions.cs](src/Extensions/MatrixExtensions.cs) - aprašomi pagalbiniai metodai su matricomis (byte[][] tipo duomenys);
 - [Extensions/StringExtensions.cs](src/Extensions/StringExtensions.cs) - aprašomi pagalbiniai metodai su tekstu (string tipo duomenys);
 - [Extensions/VectorExtensions.cs](src/Extensions/VectorExtensions.cs) - aprašomi pagalbiniai metodai su vektoriais (byte[] tipo duomenys);
@@ -64,7 +62,7 @@ Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą 
 
 ## Vartotojo sąsaja
 - Paleidęs programą vartotojas mato, kokia naudojama generuojanti matrica G, kokia sugeneruota kontrolinė matrica H;
-- Jis turi pasirinkti įvesties tipą (1 - vektorius, 2 - tekstas) įvesdamas atitinkamą skaičių į įvesties terminalą;
+- Jis turi pasirinkti įvesties tipą (1 - vektorius, 2 - tekstas, 3 - paveikslėlis, 4 - testavimas) įvesdamas atitinkamą skaičių į įvesties terminalą;
 - Pasirinkęs vektorių, vartotojas turi jį įvesti be tarpų, įvestas vektorius turi atitikti kodo dimensijos ilgį;
 - Po vektoriaus įvedimo, vartotojas pamato savo originalią įvesti, užkoduotą įvestį, išsiųstą įvestį, kiek ir kokios buvo padarytos klaidos;
 - Tada vartotojas gali pasirinkti, ar nori redaguoti iš kanalo gautą vektorių prieš dekodavimą;
@@ -74,7 +72,7 @@ Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą 
 - Pasirinkęs tekstą, vartotojas turi įvesti tekstą;
 - Vartotojui parodoma originali įvestis, užkoduota įvestis (tačiau konvertuota į skaitomą tekstą), išsiųsta įvestis (tačiau konvertuota į skaitomą tekstą), įvestis, kuri buvo iškart dekoduota (t.y nesiunčiama kanalu) ir iš kanalo gauta ir dekoduota įvestis.
 ---
-- Testavimui su skirtingų ilgių vektoriais pateikiamas 3 - čias programos veikimo režimas, kuris pats sugeneruoja visus galimus vektorius ir parodo, originalų vektorių, užkoduotą vektorių, išsiųstą vektorių ir dekoduotą vektorių.
+- Testavimui su skirtingų ilgių vektoriais pateikiamas 4 - asis programos veikimo režimas, kuris pats sugeneruoja visus galimus vektorius ir parodo, originalų vektorių, užkoduotą vektorių, išsiųstą vektorių ir dekoduotą vektorių.
 
 Programos konfiguracijos pavyzdys:<br />
 ![Programos konfiguracijos pavyzdys](images/example_configuration.png)
