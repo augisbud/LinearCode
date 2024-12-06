@@ -34,7 +34,7 @@ G.Print();
 Console.WriteLine("\nKontrolinė Matrica H:");
 H.Print();
 
-Console.WriteLine("\n\nPasirinkite įvesties tipą (1 - vektorius, 2 - tekstas, 3 - testavimas):");
+Console.WriteLine("\n\nPasirinkite įvesties tipą (1 - vektorius, 2 - tekstas, 3 - paveikslėlis, 4 - testavimas):");
 var inputTypeString = Console.ReadLine();
 if (!Enum.TryParse(inputTypeString, out InputType inputType))
 {
@@ -71,6 +71,24 @@ switch (inputType)
         InputService.ProccessText(vector, configuration, G, H);
 
         break;
+    }
+    case InputType.Image:
+    {
+        Console.WriteLine("Įveskite paveikslėlio kelią:");
+        var textString = Console.ReadLine();
+        if (textString == null || textString == string.Empty)
+        {
+            Console.WriteLine("Netinkamai įvestas tekstas.");
+            Console.ReadLine();
+            return;
+        }
+        
+        var file = File.ReadAllBytes(textString);
+        var vector = file.ToBits();
+
+        InputService.ProccessImage(vector, configuration, G, H, textString);
+
+        break; 
     }
     case InputType.Test:
     {

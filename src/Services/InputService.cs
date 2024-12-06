@@ -78,6 +78,30 @@ public static class InputService
         Console.WriteLine(decoded.ConvertFromBits(8, configuration.CodeDimension));
     }
 
+    public static void ProccessImage(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H, string name)
+    {
+        var input = vector.Prepare(8, configuration.CodeDimension);
+        Console.WriteLine("Originali, išskaidytą įvestis išsaugota: {0}", name);
+        File.WriteAllBytes(name, input.FromBits(8, configuration.CodeDimension));
+
+        var encoded = EncoderService.Vector(G, input);
+        Console.WriteLine("\nUžkoduota įvestis išsaugota encoded_{0}:", name);
+        File.WriteAllBytes("encoded_" + name, encoded.FromBits(8, configuration.CodeDimension));
+
+        var random = new Random();
+        var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
+        Console.WriteLine("\nIšsiųstą įvestis išsaugota: transmitted_{0}", name);
+        File.WriteAllBytes("transmitted_" + name, transmitted.FromBits(8, configuration.CodeDimension));
+
+        var rawDecoded = DecoderService.Vector(G, H, encoded);
+        Console.WriteLine("\nIškart dekoduota įvestis išsaugota: rawDecoded_{0}", name);
+        File.WriteAllBytes("rawDecoded_" + name, rawDecoded.FromBits(8, configuration.CodeDimension));
+
+        var decoded = DecoderService.Vector(G, H, transmitted);
+        Console.WriteLine("\nDekoduota įvestis išsaugota: decoded_{0}", name);
+        File.WriteAllBytes("decoded_" + name, decoded.FromBits(8, configuration.CodeDimension));
+    }
+
     /// <summary>
     /// Testuoja visus galimus vektorius tam tikroje kodo dimensijoje.
     /// </summary>
