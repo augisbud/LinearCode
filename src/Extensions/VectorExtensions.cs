@@ -61,6 +61,8 @@ public static class VectorExtensions
             if (desiredSize < size)
             {
                 var useful = size % desiredSize;
+                if(useful == 0)
+                    useful = desiredSize;
 
                 for(var i = 0; i < chunk.Length; i++)
                 {

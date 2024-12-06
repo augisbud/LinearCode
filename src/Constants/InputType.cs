@@ -7,5 +7,6 @@ public enum InputType
 {
     Vector = 1,
     Text = 2,
-    Test = 3
+    Image = 3,
+    Test = 4
 }
