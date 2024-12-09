@@ -172,7 +172,7 @@ Rezultatai pavaizduoti grafu:<br />
 ![Eksperimentų Rezultatai](images/statistics.png)
 
 ## Pakeitimai po pristatymo
-- Programa veikia su apatiniais brūkšneliais<br />![Pavyzdys su apatiniais brūkšneliais](images/example_with_underscores.png)
+- Programa veikia su apatiniais brūkšneliais<br />![Pavyzdys su apatiniais brūkšneliais](images/example_underscores.png)
 - Atnaujinta statistika, senąją galima rasti [čia](images/statistics_old.png);
 - Vykdomas siuntimas kanalu be kodavimo, t.y originalus vektorius išsiunčiamas ir parodomas;
 - Perdarytas paveikslėlių kodavimas ir dekodavimas, išsaugomi ilgio ir pločio parametrai.
