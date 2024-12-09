@@ -4,6 +4,8 @@ using CT.Models;
 using CT.Services;
 using Microsoft.Extensions.Configuration;
 
+// TODO: image processing (Nesiųsti į kanalą pirmųjų 40 baitų (paveikslėlio antraštė)) paruosti pavyzdys su baltu ekranu;
+
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", false, true)

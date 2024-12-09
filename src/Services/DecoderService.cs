@@ -15,9 +15,11 @@ public static class DecoderService
     {
         var result = new List<byte[]>();
 
+        var syndromes = CalculateSyndromes(G, H);
+
         foreach(var vector in input)
         {
-            result.Add(Vector(G, H, vector));
+            result.Add(Vector(G, H, vector, syndromes));
         }
 
         return result;
@@ -30,10 +32,8 @@ public static class DecoderService
     /// <param name="H">Patikrinimo Matrica</param>
     /// <param name="r">Iš kanalo gautas vektorius</param>
     /// <returns>Dekoduotas vektorius</returns>
-    public static byte[] Vector(byte[][] G, byte[][] H, byte[] r)
+    public static byte[] Vector(byte[][] G, byte[][] H, byte[] r, Dictionary<string, int> syndromes)
     {
-        var syndromes = CalculateSyndromes(G, H);
-
         for (var i = 0; i < r.Length; i++)
         {
             // (2) Compute H * r ^ T and the weight w of the corresponding coset leader.

@@ -14,37 +14,44 @@ public static class InputService
     /// <param name="H">Patikrinimo Matrica</param>
     public static void ProccessVector(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H)
     {
-        var input = new List<byte[]> { vector };
-        Console.WriteLine("Originali įvestis:");
-        input.Print();
-
-        var encoded = EncoderService.Vector(G, input);
-        Console.WriteLine("\nUžkoduota įvestis:");
-        encoded.Print();
-
         var random = new Random();
-        var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
-        Console.WriteLine("\nIšsiųstą įvestis:");
-        transmitted.Print();
+        var input = new List<byte[]> { vector };
 
-        encoded.First().PrintDifferences(transmitted.First());
-
-        Console.WriteLine("\nAr norite readaguoti iš kanalo išėjusį vektorių (t/n):");
-        var willEdit = Console.ReadLine();
-        Console.WriteLine();
-        if(willEdit == "t")
         {
-            var readVector = VectorExtensions.ReadVector(configuration.CodeLength);
-            if(readVector == null)
-                return;
+            Console.WriteLine("Siuntimas Kanalu Su Kodavimu");
+            var encoded = EncoderService.Vector(G, input);
+            Console.WriteLine("\nUžkoduota įvestis:");
+            encoded.Print();
 
-            transmitted = [readVector];
+            var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
+            Console.WriteLine("\nIšsiųstą įvestis:");
+            transmitted.Print();
+
+            encoded.First().PrintDifferences(transmitted.First());
+
+            Console.WriteLine("\nAr norite readaguoti iš kanalo išėjusį vektorių (t/n):");
+            var willEdit = Console.ReadLine();
             Console.WriteLine();
-        }
+            if(willEdit == "t")
+            {
+                var readVector = VectorExtensions.ReadVector(configuration.CodeLength);
+                if(readVector == null)
+                    return;
 
-        var decoded = DecoderService.Vector(G, H, transmitted);
-        Console.WriteLine("Dekoduota įvestis:");
-        decoded.Print();
+                transmitted = [readVector];
+                Console.WriteLine();
+            }
+
+            var decoded = DecoderService.Vector(G, H, transmitted);
+            Console.WriteLine("Dekoduota įvestis:");
+            decoded.Print();
+        }
+        {
+            Console.WriteLine("\nSiuntimas Kanalu Be Kodavimo");
+            var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, input);
+            Console.WriteLine("\nGauta įvestis:");
+            transmitted.Print();
+        }
     }
 
     /// <summary>
@@ -56,28 +63,40 @@ public static class InputService
     /// <param name="H">Patikrinimo Matrica</param>
     public static void ProccessText(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H)
     {
-        var input = vector.Prepare(8, configuration.CodeDimension);
-        Console.WriteLine("Originali, išskaidytą įvestis:");
-        Console.WriteLine(input.ConvertFromBits(8, configuration.CodeDimension));
-
-        var encoded = EncoderService.Vector(G, input);
-        Console.WriteLine("\nUžkoduota įvestis:");
-        Console.WriteLine(encoded.ConvertFromBits(8, configuration.CodeDimension));
-
         var random = new Random();
-        var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
-        Console.WriteLine("\nIšsiųstą įvestis:");
-        Console.WriteLine(transmitted.ConvertFromBits(8, configuration.CodeDimension));
+        var input = vector.Prepare(8, configuration.CodeDimension);
 
-        var rawDecoded = DecoderService.Vector(G, H, encoded);
-        Console.WriteLine("\nIškart dekoduota įvestis:");
-        Console.WriteLine(rawDecoded.ConvertFromBits(8, configuration.CodeDimension));
+        {    
+            Console.WriteLine("Siuntimas Kanalu Su Kodavimu");
 
-        var decoded = DecoderService.Vector(G, H, transmitted);
-        Console.WriteLine("\nDekoduota įvestis:");
-        Console.WriteLine(decoded.ConvertFromBits(8, configuration.CodeDimension));
+            var encoded = EncoderService.Vector(G, input);
+            Console.WriteLine("\nUžkoduota įvestis:");
+            Console.WriteLine(encoded.ConvertFromBits(8, configuration.CodeDimension));
+
+            var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
+            Console.WriteLine("\nIšsiųstą įvestis:");
+            Console.WriteLine(transmitted.ConvertFromBits(8, configuration.CodeDimension));
+
+            var decoded = DecoderService.Vector(G, H, transmitted);
+            Console.WriteLine("\nDekoduota įvestis:");
+            Console.WriteLine(decoded.ConvertFromBits(8, configuration.CodeDimension));
+        }
+        {
+            Console.WriteLine("\nSiuntimas Kanalu Be Kodavimo");
+            var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, input);
+            Console.WriteLine("\nGauta įvestis:");
+            Console.WriteLine(transmitted.ConvertFromBits(8, configuration.CodeDimension));
+        }    
     }
 
+    /// <summary>
+    /// Užkoduoja, išsiunčia per kanalą ir dekoduoja paveikslėlį išskaidytą į vektorių.
+    /// </summary>
+    /// <param name="vector"></param>
+    /// <param name="configuration"></param>
+    /// <param name="G"></param>
+    /// <param name="H"></param>
+    /// <param name="name"></param>
     public static void ProccessImage(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H, string name)
     {
         var input = vector.Prepare(8, configuration.CodeDimension);

@@ -163,6 +163,11 @@ Iš eksperimentų matome, kad tiesinis kodas patikimai ištaiso tik tada, kai si
 Rezultatai pavaizduoti grafu:<br />
 ![Eksperimentų Rezultatai](images/statistics.png)
 
+## Pakeitimai po pristatymo
+- Programa veikia su apatiniais brūkšneliais<br />![Pavyzdys su apatiniais brūkšneliais](images/example_with_underscores.png)
+- Atnaujinta statistika, senąją galima rasti [čia](images/statistics_old.png).
+- Vykdomas siuntimas kanalu be kodavimo, t.y originalus vektorius išsiunčiamas ir parodomas.
+
 ## Naudota Literatūra
 - A11 užduoties aptarimas;
 - [Literatūra21.pdf](https://klevas.mif.vu.lt/~skersys/doc/ktkt/literatura21.pdf);
