@@ -35,6 +35,7 @@ Pastaba: programa palaiko tik standartinio pavidalo generuojančią matricą, je
 
 ## Trečiųjų šalių funkcijų bibliotekos
 - `Microsoft.Extensions.Configuration.*` - naudojama nuskaityti programos konfiguraciją iš failo, įrašoma ir nurodoma `CT.csproj` faile, panaudojama `using Microsoft.Extensions.Configuration`;
+- `System.Drawing.Common` - Bitmap biblioteka leidžianti atlikti veiksmus su bitmap tipo duomenimis, panaudojama `using System.Drawing;`;
 - `System.Text` - ASCII ir Unicode simbolių kodavimo klasės; abstrakčios bazinės klasės, skirtos simbolių blokams konvertuoti į baitų blokus ir iš jų; ir pagalbinė klasė, kuri manipuliuoja „String“ objektais ir juos formatuoja nekurdama tarpinių „String“ egzempliorių, panaudojama `using System.Text`;
 - Visi kiti `using` t.y `using CT.*` naudoja vidinius, šioje programoje aprašytus metodus.
 
@@ -47,7 +48,8 @@ Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą 
 
 ## Kodo failų aprašymas
 - [Constants/InputType.cs](src/Constants/InputType.cs) - aprašomi galimi įvesties tipai;
-- [Extensions/ByteExtensions.cs](src/Extensions/ByteExtensions.cs) - aprašomi pagalbiniai metodai su baitų tipo duomenimis.
+- [Extensions/BitmapExtensions.cs](src/Extensions/BitmapExtensions.cs) - aprašomi pagalbiniai metodai su bitmap tipo duomenimis;
+- [Extensions/ByteExtensions.cs](src/Extensions/ByteExtensions.cs) - aprašomi pagalbiniai metodai su baitų tipo duomenimis;
 - [Extensions/MatrixExtensions.cs](src/Extensions/MatrixExtensions.cs) - aprašomi pagalbiniai metodai su matricomis (byte[][] tipo duomenys);
 - [Extensions/StringExtensions.cs](src/Extensions/StringExtensions.cs) - aprašomi pagalbiniai metodai su tekstu (string tipo duomenys);
 - [Extensions/VectorExtensions.cs](src/Extensions/VectorExtensions.cs) - aprašomi pagalbiniai metodai su vektoriais (byte[] tipo duomenys);
@@ -70,7 +72,10 @@ Paleidus programą, vartotojas turi pasirinkti įvesties tipą, įvesti norimą 
 - Gavęs dekoduotą vektorių, vartotojas mato rezultatą ekrane.
 ---
 - Pasirinkęs tekstą, vartotojas turi įvesti tekstą;
-- Vartotojui parodoma originali įvestis, užkoduota įvestis (tačiau konvertuota į skaitomą tekstą), išsiųsta įvestis (tačiau konvertuota į skaitomą tekstą), įvestis, kuri buvo iškart dekoduota (t.y nesiunčiama kanalu) ir iš kanalo gauta ir dekoduota įvestis.
+- Vartotojui parodoma originali įvestis, užkoduota įvestis (tačiau konvertuota į skaitomą tekstą), išsiųsta įvestis (tačiau konvertuota į skaitomą tekstą), iš kanalo gauta ir dekoduota įvestis ir taip pat įvestis siųsta per kanalą be kodavimo.
+---
+- Pasirinkęs paveikslėlį, vartotojas turi įvesti jo kelią savo sistemoje (pvz. white.bmp);
+- Išsaugomi du nauji failai: decoded_white.bmp ir decoded_noenc_white.bmp, t.y pirmasis yra užkoduotas, išsiųstas kanalu ir dekoduotas, o antrasis yra siųstas kanalu be kodavimo.
 ---
 - Testavimui su skirtingų ilgių vektoriais pateikiamas 4 - asis programos veikimo režimas, kuris pats sugeneruoja visus galimus vektorius ir parodo, originalų vektorių, užkoduotą vektorių, išsiųstą vektorių ir dekoduotą vektorių.
 
@@ -82,6 +87,9 @@ Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant vektorių (žaliai pažy
 
 Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant tekstą (žaliai pažymėtos vartotojo įvestis):
 ![Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant tekstą](images/example_text.png)
+
+Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant paveikslėlį (žaliai pažymėtos vartotojo įvestis):
+![Pavyzdys užkoduojant, siunčiant kanalu ir dekoduojant paveikslėlį](images/example_image.png)
 
 ## Programiniai sprendimai
 Teksto skaidymas į vektorius:
@@ -165,8 +173,9 @@ Rezultatai pavaizduoti grafu:<br />
 
 ## Pakeitimai po pristatymo
 - Programa veikia su apatiniais brūkšneliais<br />![Pavyzdys su apatiniais brūkšneliais](images/example_with_underscores.png)
-- Atnaujinta statistika, senąją galima rasti [čia](images/statistics_old.png).
-- Vykdomas siuntimas kanalu be kodavimo, t.y originalus vektorius išsiunčiamas ir parodomas.
+- Atnaujinta statistika, senąją galima rasti [čia](images/statistics_old.png);
+- Vykdomas siuntimas kanalu be kodavimo, t.y originalus vektorius išsiunčiamas ir parodomas;
+- Perdarytas paveikslėlių kodavimas ir dekodavimas, išsaugomi ilgio ir pločio parametrai.
 
 ## Naudota Literatūra
 - A11 užduoties aptarimas;

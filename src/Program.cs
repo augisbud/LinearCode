@@ -77,18 +77,15 @@ switch (inputType)
     case InputType.Image:
     {
         Console.WriteLine("Įveskite paveikslėlio kelią:");
-        var textString = Console.ReadLine();
-        if (textString == null || textString == string.Empty)
+        var path = Console.ReadLine();
+        if (path == null || path == string.Empty)
         {
             Console.WriteLine("Netinkamai įvestas tekstas.");
             Console.ReadLine();
             return;
         }
         
-        var file = File.ReadAllBytes(textString);
-        var vector = file.ToBits();
-
-        InputService.ProccessImage(vector, configuration, G, H, textString);
+        InputService.ProccessImage(path, configuration, G, H);
 
         break; 
     }

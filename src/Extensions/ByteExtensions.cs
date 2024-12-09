@@ -2,6 +2,11 @@ namespace CT.Extensions;
 
 public static class ByteExtensions
 {
+    /// <summary>
+    /// Paverčia baitų masyvą į bitų masyvą.
+    /// </summary>
+    /// <param name="bytes"></param>
+    /// <returns></returns>
     public static byte[] ToBits(this byte[] bytes)
     {
         byte[] bits = new byte[bytes.Length * 8];
@@ -14,6 +19,13 @@ public static class ByteExtensions
         return bits;
     }
 
+    /// <summary>
+    /// Paverčia bitų masyvą į baitų masyvą ir atsižvelgiant į papildomus bitus.
+    /// </summary>
+    /// <param name="input">Bitų masyvas</param>
+    /// <param name="size">Kiek bitų sudaro vieną baitą</param>
+    /// <param name="desiredSize">Kiek bitų turi būti naudojama iš baito</param>
+    /// <returns>Paverstas baitų masyvas</returns>
     public static byte[] FromBits(this List<byte[]> input, int size, int desiredSize)
     {
         var vectorList = new List<byte[]>();

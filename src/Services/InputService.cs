@@ -1,3 +1,4 @@
+using System.Drawing;
 using CT.Extensions;
 using CT.Models;
 
@@ -97,29 +98,33 @@ public static class InputService
     /// <param name="G"></param>
     /// <param name="H"></param>
     /// <param name="name"></param>
-    public static void ProccessImage(byte[] vector, CodeParametersDto configuration, byte[][] G, byte[][] H, string name)
+    #pragma warning disable CA1416 // Validate platform compatibility
+    public static void ProccessImage(string path, CodeParametersDto configuration, byte[][] G, byte[][] H)
     {
-        var input = vector.Prepare(8, configuration.CodeDimension);
-        Console.WriteLine("Originali, išskaidytą įvestis išsaugota: {0}", name);
-        File.WriteAllBytes(name, input.FromBits(8, configuration.CodeDimension));
-
-        var encoded = EncoderService.Vector(G, input);
-        Console.WriteLine("\nUžkoduota įvestis išsaugota encoded_{0}:", name);
-        File.WriteAllBytes("encoded_" + name, encoded.FromBits(8, configuration.CodeDimension));
-
         var random = new Random();
-        var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
-        Console.WriteLine("\nIšsiųstą įvestis išsaugota: transmitted_{0}", name);
-        File.WriteAllBytes("transmitted_" + name, transmitted.FromBits(8, configuration.CodeDimension));
 
-        var rawDecoded = DecoderService.Vector(G, H, encoded);
-        Console.WriteLine("\nIškart dekoduota įvestis išsaugota: rawDecoded_{0}", name);
-        File.WriteAllBytes("rawDecoded_" + name, rawDecoded.FromBits(8, configuration.CodeDimension));
+        using var bitmap = new Bitmap(path);
+        var input = bitmap.GetBytes().ToBits().Prepare(8, configuration.CodeDimension);
 
-        var decoded = DecoderService.Vector(G, H, transmitted);
-        Console.WriteLine("\nDekoduota įvestis išsaugota: decoded_{0}", name);
-        File.WriteAllBytes("decoded_" + name, decoded.FromBits(8, configuration.CodeDimension));
+        {
+            Console.WriteLine("Siuntimas Kanalu Su Kodavimu");
+
+            var encoded = EncoderService.Vector(G, input);
+            var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, encoded);
+            var decoded = DecoderService.Vector(G, H, transmitted);
+
+            decoded.FromBits(8, configuration.CodeDimension).FromBytes(bitmap.Width, bitmap.Height).Save("decoded_" + path);
+            Console.WriteLine("Įvestis išsaugota kaip decoded_" + path);
+        }
+        {
+            Console.WriteLine("Siuntimas Kanalu Be Kodavimo");
+
+            var transmitted = ChannelService.Transmit(random, configuration.ErrorRate, input);
+            transmitted.FromBits(8, configuration.CodeDimension).FromBytes(bitmap.Width, bitmap.Height).Save("decoded_noenc_" + path);
+            Console.WriteLine("Įvestis išsaugota kaip decoded_noenc_" + path);
+        }
     }
+    #pragma warning restore CA1416 // Validate platform compatibility
 
     /// <summary>
     /// Testuoja visus galimus vektorius tam tikroje kodo dimensijoje.
